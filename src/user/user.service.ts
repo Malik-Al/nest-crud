@@ -6,9 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class UserService {
-  private readonly logger = new Logger(UserService.name);
   constructor(@InjectRepository(User) private userRepository: Repository<User>) {}
-
 
   async findAll(): Promise<User[]>{
     return await this.userRepository.find()
@@ -16,7 +14,6 @@ export class UserService {
 
   async create(body: User) {
     const heroBody = User.fromUserInput(body)
-    this.logger.log('Hero Creation', 'HeroCreateService')
     return await this.userRepository.save(heroBody)
   }
 
